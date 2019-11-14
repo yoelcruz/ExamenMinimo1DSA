@@ -2,14 +2,9 @@ package edu.upc.dsa.services;
 
 import edu.upc.dsa.UsuariosManager;
 import edu.upc.dsa.UsuariosManagerImp;
-import edu.upc.dsa.ProductsManager;
-import edu.upc.dsa.ProductsManagerImp;
-import edu.upc.dsa.TracksManagerImpl;
 import edu.upc.dsa.models.Objeto;
-import edu.upc.dsa.models.Product;
 import edu.upc.dsa.models.Usuario;
 
-import edu.upc.dsa.models.Track;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -33,6 +28,9 @@ public class UsuariosService {
             this.um.addUsuario("1", "yoel", "cruz_torres");
             this.um.addUsuario("2", "miriam", "cruz_torres");
             this.um.addUsuario("3", "jose", "cruz_sierra");
+            this.um.addObjetoConIdUsuario("1","espada",1);
+            this.um.addObjetoConIdUsuario("1","cofre",3);
+            this.um.addObjetoConIdUsuario("2","escudo",5);
         }
     }
 
@@ -136,43 +134,4 @@ public class UsuariosService {
             return Response.status(201).entity(objeto).build();
         }
     }
-
-//    @POST
-//    @ApiOperation(value = "Create a new Objeto", notes = "asdasd")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 201, message = "Successful", response= Usuario.class),
-//            @ApiResponse(code = 500, message = "Validation Error")
-//
-//    })
-//
-//    @Path("/{id}/{name}/{cantidad}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response newObjeto(@PathParam("id"+ "objeto"+"cantidad") String id, String name, int cantidad) {
-//        Usuario u = this.um.getUsuarioById(id);
-//        if (u == null) return Response.status(404).build();
-//        else  {
-//            u.addObjeto(name,cantidad);
-//            return Response.status(201).entity(u).build();
-//        }
-//    }
-
-//    @GET
-//    @ApiOperation(value = "get num usuarios", notes = "asdasd")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 201, message = "Successful", response = Usuario.class, responseContainer="List"),
-//    })
-//    @Path("/ordenadoAlfabeticamente")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getNumUsuarios() {
-//        List<Usuario> usuarios = this.um.usuariosOrdenadosAlfabeticamente();
-//        int numUsuarios = this.um.size();
-//
-//        return Response.status(201).entity(numUsuarios).build();
-//    }
-
-
-
-
-
-
 }

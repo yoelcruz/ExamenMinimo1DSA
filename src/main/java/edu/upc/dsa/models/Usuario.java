@@ -60,6 +60,7 @@ public class Usuario {
         return ret;
     }
 
+
     public int numeroObjetos(){
         int numObjetos=0;
         for (Objeto objeto: objetos) {
