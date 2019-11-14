@@ -11,4 +11,5 @@ public interface UsuariosManager {
     public Usuario updateUsuarioById(Usuario usuario);
     public Usuario addUsuario (Usuario usuario);
     public Usuario getUsuarioById(String id);
+    public void addObjetoConIdUsuario(String id, String nombre, int cantidad);
 }

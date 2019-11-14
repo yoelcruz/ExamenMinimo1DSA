@@ -1,5 +1,6 @@
 package edu.upc.dsa;
 
+import edu.upc.dsa.models.Objeto;
 import edu.upc.dsa.models.Usuario;
 import org.apache.log4j.Logger;
 
@@ -11,11 +12,13 @@ import java.util.List;
 public class UsuariosManagerImp implements UsuariosManager {
     private static UsuariosManager instance;
     protected List<Usuario> usuarios;
+    protected List<Objeto> objetos;
     final static Logger logger = Logger.getLogger(UsuariosManagerImp.class);
 
     public UsuariosManagerImp() {
 
         this.usuarios = new LinkedList<>();
+        this.objetos = new LinkedList<>();
     }
 
     public static UsuariosManager getInstance() {
@@ -42,9 +45,9 @@ public class UsuariosManagerImp implements UsuariosManager {
         listaOrdenada.addAll(this.usuarios);
 
         Collections.sort(listaOrdenada, new Comparator<Usuario>() {
-        public int compare(Usuario u1, Usuario u2) {
-            return u1.getNombre().compareTo(u2.getNombre());
-        }
+            public int compare(Usuario u1, Usuario u2) {
+                return u1.getNombre().compareTo(u2.getNombre());
+            }
         });
         return listaOrdenada;
     }
@@ -84,8 +87,24 @@ public class UsuariosManagerImp implements UsuariosManager {
         else {
             logger.warn("not found "+uParameter);
         }
-
         return uSet;
+    }
+
+    public void addObjetoConIdUsuario(String id, String nombre, int cantidad){
+        logger.info("getUsuario("+id+")");
+        for(Usuario usuario: this.usuarios){
+            if (id ==usuario.getId()){
+                logger.info("getUsuario("+id+"): "+usuario);
+                usuario.addObjeto(nombre, cantidad);
+            }
+            else {
+                logger.warn("not found " + id);
+            }
+        }
+    }
+
+    public List<Objeto> getObjetos() {
+        return objetos;
     }
 
 }

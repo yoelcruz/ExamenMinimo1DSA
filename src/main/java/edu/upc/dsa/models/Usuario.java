@@ -46,8 +46,8 @@ public class Usuario {
         this.apellidos = apellidos;
     }
 
-    public void addObjeto(String name){
-        Objeto objeto = new Objeto(name);
+    public void addObjeto(String name, int cantidad){
+        Objeto objeto = new Objeto(name, cantidad);
         this.objetos.add(objeto);
     }
 
@@ -58,6 +58,14 @@ public class Usuario {
     public int size() {
         int ret = this.objetos.size();
         return ret;
+    }
+
+    public int numeroObjetos(){
+        int numObjetos=0;
+        for (Objeto objeto: objetos) {
+            numObjetos = numObjetos + objeto.getCantidad();
+        }
+        return numObjetos;
     }
 
     @Override

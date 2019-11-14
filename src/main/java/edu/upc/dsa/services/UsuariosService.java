@@ -99,6 +99,44 @@ public class UsuariosService {
         else  return Response.status(201).entity(u).build();
     }
 
+    @GET
+    @ApiOperation(value = "Get Objeto de un usuario", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Objeto.class, responseContainer="List"),
+            @ApiResponse(code = 404, message = "Usuario not found")
+    })
+    @Path("/{id}/objetos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getObjetoDeUnUsuario(@PathParam("id") String id) {
+        Usuario u = this.um.getUsuarioById(id);
+        if (u == null) return Response.status(404).build();
+        else {
+            List<Objeto> objetos = u.getObjetos();
+            GenericEntity<List<Objeto>> entity = new GenericEntity<List<Objeto>>(objetos) {};
+            return Response.status(201).entity(entity).build();
+        }
+    }
+
+
+    @POST
+    @ApiOperation(value = "Crear un objeto", notes = "asdasd")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Successful", response = Objeto.class, responseContainer="List"),
+            @ApiResponse(code = 404, message = "Usuario not found"),
+            @ApiResponse(code = 500, message = "Validation Error")
+    })
+    @Path("/{id}/objetos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response crearObjeto(@PathParam("id") String id, Objeto objeto) {
+
+        Usuario u = this.um.getUsuarioById(id);
+        if (u == null) return Response.status(404).build();
+        else  {
+            u.addObjeto(objeto.getName(),objeto.getCantidad());
+            return Response.status(201).entity(objeto).build();
+        }
+    }
+
 //    @POST
 //    @ApiOperation(value = "Create a new Objeto", notes = "asdasd")
 //    @ApiResponses(value = {
@@ -107,13 +145,13 @@ public class UsuariosService {
 //
 //    })
 //
-//    @Path("/{id}")
+//    @Path("/{id}/{name}/{cantidad}")
 //    @Produces(MediaType.APPLICATION_JSON)
-//    public Response newObjeto(@PathParam("id"+ "objeto") String id, String name) {
+//    public Response newObjeto(@PathParam("id"+ "objeto"+"cantidad") String id, String name, int cantidad) {
 //        Usuario u = this.um.getUsuarioById(id);
 //        if (u == null) return Response.status(404).build();
 //        else  {
-//            u.addObjeto(name);
+//            u.addObjeto(name,cantidad);
 //            return Response.status(201).entity(u).build();
 //        }
 //    }
